@@ -3,7 +3,7 @@
     <div class='icon <%= post.is_published?? 'published' : 'draft' %>'></div>
     <div class='action_links'>
       <% unless ComfyBlog.disqus_enabled? %>
-        <%= link_to pluralize(post.comments.count, 'comment'), admin_blog_post_comments_path(post) %>
+        <%= link_to t('comment', :count => post.comments.count), admin_blog_post_comments_path(post) %>
       <% end %>
       <%= link_to 'Edit', edit_admin_blog_post_path(post) %>
       <%= link_to 'Delete', admin_blog_post_path(post), :method => :delete, :confirm => 'Are you sure?' %>
