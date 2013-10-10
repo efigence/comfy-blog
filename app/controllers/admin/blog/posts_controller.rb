@@ -32,7 +32,7 @@ class Admin::Blog::PostsController < Admin::Blog::BaseController
   end
   
   def update
-    @post.update_attributes!(params[:post])
+    @post.update_attributes!(post_params)
     flash[:notice] = 'Blog Post updated'
     redirect_to :action => :edit, :id => @post
     
@@ -57,7 +57,11 @@ protected
   end
   
   def build_post
-    @post = Blog::Post.new(params[:post])
+    @post = Blog::Post.new(post_params)
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :slug, :author, :tag_names, :excerpt, :content, :published_at, :is_published)
   end
   
 end

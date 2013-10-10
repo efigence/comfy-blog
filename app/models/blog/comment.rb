@@ -2,10 +2,6 @@ class Blog::Comment < ActiveRecord::Base
   
   self.table_name = :blog_comments
   
-  attr_accessible :author,
-                  :email,
-                  :content
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :post
   
@@ -16,7 +12,7 @@ class Blog::Comment < ActiveRecord::Base
   validates :post_id, :content, :author, :email, 
     :presence => true
   validates :email,
-    :format => { :with => /^([\w.%-+]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+    :format => { :with => /\A([\w.%-+]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     
   # -- Scopes ---------------------------------------------------------------
   scope :published, where(:is_published => true)

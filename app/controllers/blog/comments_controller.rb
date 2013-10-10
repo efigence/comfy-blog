@@ -2,7 +2,7 @@ class Blog::CommentsController < ApplicationController
   
   def create
     @post = Blog::Post.published.find(params[:post_id])
-    @comment = @post.comments.new(params[:comment])
+    @comment = @post.comments.new(comment_params)
     @comment.save!
     
     respond_to do |f|
@@ -31,5 +31,11 @@ class Blog::CommentsController < ApplicationController
       end
       f.js
     end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:author, :email, :content)
   end
 end
